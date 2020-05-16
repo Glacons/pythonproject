@@ -2,10 +2,10 @@
 
 import random
 import datetime
-import os
-import time
+import os#modif
+import time#modif
 
-class Player :
+class Player :#modif
     
     keyboard_key = {'z':(-1,0),
                     'q':(0,-1),
@@ -14,15 +14,15 @@ class Player :
                     'l': "leave",
                     'p': "pause"}
     
-    def __init__(self, name, points = 0, start = (0,0)):
+    def __init__(self, name, points = 0, start = (0,0)):#modif
         self.name = name
         self.points = points
         self.position = start
-        self.before = start #modif
-        self.compare = start #modif
+        self.before = start 
+        self.compare = start 
 
 
-    def move(self) :
+    def move(self) :#modif
         
         key = input("Mouvement (z,q,s,d) or (l,p) : ")
         while key not in Player.keyboard_key.keys() :
@@ -35,11 +35,11 @@ class Player :
         else:
             move = Player.keyboard_key[key]
 
-            if self.before != (self.compare[0] + move[0], self.compare[1] + move[1]): #modif
+            if self.before != (self.compare[0] + move[0], self.compare[1] + move[1]): 
 
-                self.before = self.compare #modif
-                self.compare = (self.compare[0] + move[0], self.compare[1] + move[1]) #modif
-                self.position = (self.position[0] + move[0], self.position[1] + move[1]) #modif    
+                self.before = self.compare 
+                self.compare = (self.compare[0] + move[0], self.compare[1] + move[1]) 
+                self.position = (self.position[0] + move[0], self.position[1] + move[1]) 
 
 class Game :
     
@@ -48,17 +48,17 @@ class Game :
         self.board_size = size
         self.candies = []
         self.bonusT = [] #Modif
-        self.valDiff = {"1": [3,10], "2": [5,16], "3": [8,22]}
+        self.valDiff = {"1": [3,10], "2": [5,16], "3": [8,22]} #modif
         
     # Dessine le plateau
-    def draw(self):
+    def draw(self):#modif
         os.system("cls")
         for line in range(self.board_size):
             for col in range(self.board_size):
                 if (line,col) in self.candies :
                     print("*",end=" ")
-                elif (line,col) in self.bonusT : #Modif
-                    print("T",end=" ") #Modif
+                elif (line,col) in self.bonusT : 
+                    print("T",end=" ") 
                 elif (line,col) == self.player.position :
                     print("O",end=" ")
                 else : 
@@ -66,7 +66,7 @@ class Game :
             print()
             
     # Fait apparaitre un bonbon
-    def pop_candy(self):
+    def pop_candy(self):#modif
         new_candy = (random.choice(range(self.board_size)),random.choice(range(self.board_size)))
         if new_candy not in self.candies and new_candy not in self.bonusT : #Modif
             self.candies.append(new_candy)
@@ -115,7 +115,7 @@ class Game :
         data_split = [i.split() for i in data]
 
         top_10 = sorted(data_split, key=lambda infosparties: int(infosparties[1]), reverse=True) # Int car sinon bug reverse=true pour décroissant
-        #prendre les listes(nom,pts,date) dans listes(datasplit) il prend chaque listes il va aller voir dedans la pos 1 -> les pts et après ca il va classer les listes par ordres décroissants dans le score
+        #prendre les listes(nom,pts,date) dans la liste(datasplit) il prend chaque listes il va aller voir dedans la pos 1 -> les pts et après ca il va classer les listes par ordres décroissants dans le score
         
         print("\n----- Scoreboard -----")
         for i in range(0, 10):
@@ -126,7 +126,7 @@ class Game :
         
         
     # Joue une partie complète
-    def play(self,diffi):
+    def play(self,diffi):#modif
         os.system("cls")
         print("--- Début de la partie ---")
         self.draw()
@@ -175,7 +175,7 @@ class Game :
         end = datetime.datetime.today() + delta
         return end
 
-class Menu():
+class Menu():#modif
 
     def Main(self):
         os.system("cls")
@@ -222,7 +222,7 @@ class Menu():
 
 
     @staticmethod
-    def Règles():
+    def Règles():#modif
         os.system("cls")
         print("Voici les règles:\n"
         "Ceci est un jeu de plateau où le joueur(vous \"0\") devra récuperer un maximum de bonbons dans un temps imparti.\n"
@@ -233,7 +233,7 @@ class Menu():
 
         input("\nAppuyer sur ENTER pour retourner au menu ...")
 
-    @staticmethod #lisibilité du code
+    @staticmethod #modif
     def Logo():
             print("\n"
           "   ____        _                  _____                       \n"
@@ -244,7 +244,7 @@ class Menu():
           "  |____/ \__,_|_.__/ \___/ \__,_|\_____|\__,_|_| |_| |_|\___| \n")
     @staticmethod
 
-    def Affichage():
+    def Affichage():#modif
 
         print("\n"
             "     ___________________________________  \n"
@@ -260,7 +260,7 @@ class Menu():
 
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__" : #modif
      
     g = Menu()
     g.Main()
