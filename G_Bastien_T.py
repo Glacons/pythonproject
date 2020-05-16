@@ -94,7 +94,7 @@ class Game :
             self.end = self.end + delta
             self.bonusT.remove(self.player.position)
 
-    def check_malus(self) :
+    def check_malus(self) :#modif
         if self.player.position in self.malusF:
             
             self.malusF.remove(self.player.position)
