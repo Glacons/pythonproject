@@ -48,6 +48,7 @@ class Game :
         self.board_size = size
         self.candies = []
         self.bonusT = [] #Modif
+        self.malusF = [] #modif
         self.valDiff = {"1": [3,10], "2": [5,16], "3": [8,22]} #modif
         
     # Dessine le plateau
@@ -68,13 +69,18 @@ class Game :
     # Fait apparaitre un bonbon
     def pop_candy(self):#modif
         new_candy = (random.choice(range(self.board_size)),random.choice(range(self.board_size)))
-        if new_candy not in self.candies and new_candy not in self.bonusT : #Modif
+        if new_candy not in self.candies and new_candy not in self.bonusT and new_candy not in self.malusF : #Modif
             self.candies.append(new_candy)
     
     def pop_temps(self): #Modif
         bonus_temp = (random.choice(range(self.board_size)),random.choice(range(self.board_size))) #Modif
-        if bonus_temp not in self.candies and bonus_temp not in self.bonusT : #Modif
+        if bonus_temp not in self.candies and bonus_temp not in self.bonusT and bonus_temp not in self.malusF : #Modif
             self.bonusT.append(bonus_temp) #Modif
+
+    def pop_malus(self): #modif
+        malus_freeze = (random.choice(range(self.board_size)),random.choice(range(self.board_size)))
+        if malus_freeze not in self.candies and malus_freeze not in self.bonusT and malus_freeze not in self.malusF :
+            self.malusF.append(malus_freeze)
              
     # Regarde s'il y a un bonbon à prendre (et le prend)
     def check_candy(self):
