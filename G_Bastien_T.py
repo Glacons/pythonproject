@@ -94,6 +94,12 @@ class Game :
             self.end = self.end + delta
             self.bonusT.remove(self.player.position)
 
+    def check_malus(self) :
+        if self.player.position in self.malusF:
+            
+            self.malusF.remove(self.player.position)
+
+
     def print_time(self):#modif
         
         restant = self.end - datetime.datetime.today()
