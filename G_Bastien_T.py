@@ -44,12 +44,12 @@ class Player :#modif
 class Game :
     
     def __init__(self, player, size=10):
-        self.bool_freeze = " "
         self.player = player
         self.board_size = size
         self.candies = []
         self.bonusT = [] #Modif
         self.malusF = [] #modif
+        self.bool_freeze = " "
         self.valDiff = {"1": [3,10,22], "2": [5,16,10], "3": [8,22,5]} #modif
         
     # Dessine le plateau
