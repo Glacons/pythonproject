@@ -62,6 +62,8 @@ class Game :
                     print("T",end=" ") 
                 elif (line,col) == self.player.position :
                     print("O",end=" ")
+                else (line,col) == self.malusF :
+                    print("ƒ",end=" ")                
                 else : 
                     print(".",end=" ")
             print()
