@@ -44,6 +44,7 @@ class Player :#modif
 class Game :
     
     def __init__(self, player, size=10):
+        self.bool_freeze = " "
         self.player = player
         self.board_size = size
         self.candies = []
@@ -98,7 +99,7 @@ class Game :
 
     def check_malus(self) :#modif
         if self.player.position in self.malusF:
-            time.sleep(2)
+            self.bool_freeze = True
             self.malusF.remove(self.player.position)
 
 
@@ -173,6 +174,11 @@ class Game :
 
             self.draw()
             self.print_time()#modif
+            
+            if self.bool_freeze == True :
+                print("Impossible de bouger, trop froid !!")
+                time.sleep(2)
+                self.bool_freeze = False
             
             now = datetime.datetime.today()
         
