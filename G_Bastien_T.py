@@ -49,7 +49,7 @@ class Game :
         self.candies = []
         self.bonusT = [] #Modif
         self.malusF = [] #modif
-        self.valDiff = {"1": [3,10], "2": [5,16], "3": [8,22]} #modif
+        self.valDiff = {"1": [3,10,22], "2": [5,16,10], "3": [8,22,5]} #modif
         
     # Dessine le plateau
     def draw(self):#modif
@@ -59,11 +59,11 @@ class Game :
                 if (line,col) in self.candies :
                     print("*",end=" ")
                 elif (line,col) in self.bonusT : 
-                    print("T",end=" ") 
+                    print("T",end=" ")
+                elif (line,col) in self.malusF :
+                    print("ƒ",end=" ") 
                 elif (line,col) == self.player.position :
-                    print("O",end=" ")
-                else (line,col) == self.malusF :
-                    print("ƒ",end=" ")                
+                    print("O",end=" ")                
                 else : 
                     print(".",end=" ")
             print()
@@ -98,7 +98,7 @@ class Game :
 
     def check_malus(self) :#modif
         if self.player.position in self.malusF:
-            
+            time.sleep(2)
             self.malusF.remove(self.player.position)
 
 
@@ -161,12 +161,15 @@ class Game :
             
             self.check_candy()
             self.check_temps() #Modif
+            self.check_malus()
             
 
             if random.randint(1,self.valDiff[diffi][0]) == 1 :
                 self.pop_candy()
             if random.randint(1,self.valDiff[diffi][1]) == 1 : #Modif
                 self.pop_temps() #Modif
+            if random.randint(1,self.valDiff[diffi][2]) == 1 :
+                self.pop_malus()
 
             self.draw()
             self.print_time()#modif
