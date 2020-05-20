@@ -11,8 +11,7 @@ class Player :#modif
                     'q':(0,-1),
                     's':(1,0),
                     'd':(0,1),
-                    'l': "leave",
-                    'p': "pause"}
+                    'l': "leave"}
     
     def __init__(self, name, points = 0, start = (0,0)):#modif
         self.name = name
@@ -24,10 +23,10 @@ class Player :#modif
 
     def move(self) :#modif
         
-        key = input("Mouvement (z,q,s,d) or (l,p) : ")
+        key = input("Mouvement (z,q,s,d) or (l) : ")
         while key not in Player.keyboard_key.keys() :
             
-            key = input("Mouvement (z,q,s,d) or (l,p) : ")
+            key = input("Mouvement (z,q,s,d) or (l) : ")
                     
         if key == "l":
             g.Main()
@@ -252,7 +251,8 @@ class Menu():#modif
         "Pour se faire vous devrez vous déplacer avec les touches Z(haut), Q(gauche), S(bas), D(droite).\n"
         "Il existe deux types d'objets ramassables qui apparaitront de façons aléatoire :\n"
         "-  * les bonbons ceux-ci vous attribueront 1 points lorsque vous passerez dessus.\n"
-        "-  T un bonus de temps de 3 secondes.")
+        "-  T un bonus de temps de 3 secondes.\n"
+        "-  ƒ un malus vous gelant pendant 2 secondes.")
 
         input("\nAppuyer sur ENTER pour retourner au menu ...")
 
