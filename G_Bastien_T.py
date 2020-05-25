@@ -141,8 +141,7 @@ class Game :
         
     # Joue une partie complète
     def play(self,diffi):#modif
-        os.system("cls")
-        print("--- Début de la partie ---")
+
         self.draw()
         
         self.end = Game.end_time(1,0) #Modif self ajouté pour le rappeler dans la fonction check_temps
@@ -221,26 +220,13 @@ class Menu():#modif
                 Game.Lire_Scoreboard()
                 input("\nAppuyer sur ENTER pour continuer ...")
             elif choix == "3":
+                os.system("cls")                
                 Menu.Règles()
             elif choix == "4":
                 print("Merci d'avoir joué")
                 os._exit(1)
             else:
                 print("Bad choice ...")
-
-    @staticmethod
-    def Difficulte():#modif
-        print("\n"
-            "     ___________________________________  \n"
-            "    /            DIFFICULTES            \ \n"
-            "    \___________________________________/ \n"
-            "     |                                 |  \n"
-            "     |   [ 1 ]    Facile               |  \n"
-            "     |   [ 2 ]    Normal               |  \n"
-            "     |   [ 3 ]    Difficile            |  \n"
-            "     \_________________________________/  \n"
-        )
-        return input("Entrez votre choix : ")
 
 
     @staticmethod
@@ -284,8 +270,21 @@ class Menu():#modif
             "     |   [ 3 ]    Règles               |  \n"
             "     |   [ 4 ]    Quit.                |  \n"
             "     \_________________________________/  \n")
-        
 
+
+    @staticmethod
+    def Difficulte():#modif
+        print("\n"
+            "     ___________________________________  \n"
+            "    /            DIFFICULTES            \ \n"
+            "    \___________________________________/ \n"
+            "     |                                 |  \n"
+            "     |   [ 1 ]    Facile               |  \n"
+            "     |   [ 2 ]    Normal               |  \n"
+            "     |   [ 3 ]    Difficile            |  \n"
+            "     \_________________________________/  \n"
+        )
+        return input("Entrez votre choix : ")
 
 
 if __name__ == "__main__" : #modif
