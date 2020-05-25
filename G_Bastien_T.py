@@ -48,7 +48,7 @@ class Game :
         self.candies = []
         self.bonusT = [] #Modif
         self.malusF = [] #modif
-        self.bool_freeze = " "
+        self.bool_freeze = False
         self.valDiff = {"1": [3,10,22], "2": [5,16,10], "3": [8,22,5]} #modif
         
     # Dessine le plateau
@@ -105,7 +105,7 @@ class Game :
     def print_time(self):#modif
         
         restant = self.end - datetime.datetime.today()
-        if restant >= datetime.timedelta(seconds=0) : #timedelta set a 0 sinon il veut pas faire le >=
+        if restant >= datetime.timedelta(seconds=0) : #timedelta set a 0 sinon il veut pas faire le >= sinon le timer affiche une valeur négative
             print("Temps restants : ", restant.seconds)
 
 
@@ -128,13 +128,13 @@ class Game :
         
         data_split = [i.split() for i in data]
 
-        top_10 = sorted(data_split, key=lambda infosparties: int(infosparties[1]), reverse=True) # Int car sinon bug reverse=true pour décroissant
+        classement = sorted(data_split, key=lambda infosparties: int(infosparties[1]), reverse=True) # Int car sinon bug reverse=true pour décroissant
         #prendre les listes(nom,pts,date) dans la liste(datasplit) il prend chaque listes il va aller voir dedans la pos 1 -> les pts et après ca il va classer les listes par ordres décroissants dans le score
         
         print("\n----- Scoreboard -----")
         for i in range(0, 10):
             try:  # Exception pour si il n'y a pas 10 joueurs
-                print(i + 1,"\t" + "\t".join(top_10[i]))
+                print(i + 1,"\t" + "\t".join(classement[i]))
             except:
                 pass
         
