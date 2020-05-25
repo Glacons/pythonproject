@@ -2,10 +2,10 @@
 
 import random
 import datetime
-import os#modif
-import time#modif
+import os
+import time
 
-class Player :#modif
+class Player :
     
     keyboard_key = {'z':(-1,0),
                     'q':(0,-1),
@@ -13,7 +13,7 @@ class Player :#modif
                     'd':(0,1),
                     'l': "leave"}
     
-    def __init__(self, name, points = 0, start = (0,0)):#modif
+    def __init__(self, name, points = 0, start = (0,0)):
         self.name = name
         self.points = points
         self.position = start
@@ -21,7 +21,7 @@ class Player :#modif
         self.compare = start 
 
 
-    def move(self) :#modif
+    def move(self) :
         
         key = input("Mouvement (z,q,s,d) or (l) : ")
         while key not in Player.keyboard_key.keys() :
@@ -46,13 +46,13 @@ class Game :
         self.player = player
         self.board_size = size
         self.candies = []
-        self.bonusT = [] #Modif
-        self.malusF = [] #modif
+        self.bonusT = []
+        self.malusF = []
         self.bool_freeze = False
-        self.valDiff = {"1": [3,10,22], "2": [5,16,10], "3": [8,22,5]} #modif
+        self.valDiff = {"1": [3,10,22], "2": [5,16,10], "3": [8,22,5]}
         
     # Dessine le plateau
-    def draw(self):#modif
+    def draw(self):
         os.system("cls")
         for line in range(self.board_size):
             for col in range(self.board_size):
@@ -69,17 +69,17 @@ class Game :
             print()
             
     # Fait apparaitre un bonbon
-    def pop_candy(self):#modif
+    def pop_candy(self):
         new_candy = (random.choice(range(self.board_size)),random.choice(range(self.board_size)))
-        if new_candy not in self.candies and new_candy not in self.bonusT and new_candy not in self.malusF : #Modif
+        if new_candy not in self.candies and new_candy not in self.bonusT and new_candy not in self.malusF :
             self.candies.append(new_candy)
     
-    def pop_temps(self): #Modif
-        bonus_temp = (random.choice(range(self.board_size)),random.choice(range(self.board_size))) #Modif
-        if bonus_temp not in self.candies and bonus_temp not in self.bonusT and bonus_temp not in self.malusF : #Modif
-            self.bonusT.append(bonus_temp) #Modif
+    def pop_temps(self):
+        bonus_temp = (random.choice(range(self.board_size)),random.choice(range(self.board_size)))
+        if bonus_temp not in self.candies and bonus_temp not in self.bonusT and bonus_temp not in self.malusF :
+            self.bonusT.append(bonus_temp)
 
-    def pop_malus(self): #modif
+    def pop_malus(self):
         malus_freeze = (random.choice(range(self.board_size)),random.choice(range(self.board_size)))
         if malus_freeze not in self.candies and malus_freeze not in self.bonusT and malus_freeze not in self.malusF :
             self.malusF.append(malus_freeze)
@@ -90,19 +90,19 @@ class Game :
             self.player.points += 1
             self.candies.remove(self.player.position)
     
-    def check_temps(self) : #Modif
+    def check_temps(self) :
         if self.player.position in self.bonusT:
             delta = datetime.timedelta(0,3)
             self.end = self.end + delta
             self.bonusT.remove(self.player.position)
 
-    def check_malus(self) :#modif
+    def check_malus(self) :
         if self.player.position in self.malusF:
             self.bool_freeze = True
             self.malusF.remove(self.player.position)
 
 
-    def print_time(self):#modif
+    def print_time(self):
         
         restant = self.end - datetime.datetime.today()
         if restant >= datetime.timedelta(seconds=0) : #timedelta set a 0 sinon il veut pas faire le >= sinon le timer affiche une valeur négative
@@ -120,9 +120,8 @@ class Game :
             file.write(self.player.name + " " + str(self.player.points) + " " + date + "\n")
 
     @staticmethod
-    def Lire_Scoreboard():#lit le score et print les 10 plus haut
-
-        #  Lire le fichier et imprimer le top x des joueurs
+    def Lire_Scoreboard():#lit le score et print les 10 plus haut         
+        # Lire le fichier et imprimer le top x des joueurs
         with open("Scoreboard.txt", "r") as file:
             data = file.readlines()
         
@@ -140,15 +139,15 @@ class Game :
         
         
     # Joue une partie complète
-    def play(self,diffi):#modif
+    def play(self,diffi):
 
         self.draw()
         
-        self.end = Game.end_time(1,0) #Modif self ajouté pour le rappeler dans la fonction check_temps
+        self.end = Game.end_time(1,0)
         now = datetime.datetime.today()
         
-        while now < self.end : #Modif
-            self.player.move() #Modif
+        while now < self.end :
+            self.player.move()
             if self.player.position[0] < 0 :
                 self.player.position = (self.board_size-1,self.player.position[1])
             elif self.player.position[1] < 0 :
@@ -159,19 +158,19 @@ class Game :
                 self.player.position = (self.player.position[0],0)
             
             self.check_candy()
-            self.check_temps() #Modif
+            self.check_temps()
             self.check_malus()
             
 
             if random.randint(1,self.valDiff[diffi][0]) == 1 :
                 self.pop_candy()
-            if random.randint(1,self.valDiff[diffi][1]) == 1 : #Modif
-                self.pop_temps() #Modif
+            if random.randint(1,self.valDiff[diffi][1]) == 1 :
+                self.pop_temps()
             if random.randint(1,self.valDiff[diffi][2]) == 1 :
                 self.pop_malus()
 
             self.draw()
-            self.print_time()#modif
+            self.print_time()
             
             if self.bool_freeze == True :
                 print("Impossible de bouger, trop froid !!")
@@ -182,7 +181,7 @@ class Game :
         
         os.system("cls")
         print("----- Terminé -----")
-        print(self.player.name,"avez", self.player.points, "points")#modif
+        print(self.player.name,"avez", self.player.points, "points")
         self.Ajouter_Scoreboard()
         self.Lire_Scoreboard()
         input("\nAppuyer sur ENTER pour continuer ...")
@@ -196,7 +195,7 @@ class Game :
         end = datetime.datetime.today() + delta
         return end
 
-class Menu():#modif
+class Menu():
 
     def Main(self):
         os.system("cls")
@@ -211,17 +210,20 @@ class Menu():#modif
                 while len(player_name) > 5 or " " in player_name:
                     print("ERREUR : Votre pseudo comporte plus de 5 caractères et il ne peut pas contenir d'espace\n")
                     player_name = input("Entrer votre pseudo: ")
-                diffi = Menu.Difficulte()#modif
+                diffi = Menu.Difficulte()
+                while diffi != "1" and diffi != "2" and diffi != "3":
+                    diffi = Menu.Difficulte()
                 p = Player(player_name)
                 g = Game(p)
                 g.play(diffi)
             elif choix == "2":
-                os.system("cls")
+                os.system("cls")                                 
                 Game.Lire_Scoreboard()
                 input("\nAppuyer sur ENTER pour continuer ...")
-            elif choix == "3":
-                os.system("cls")                
+                os.system("cls")
+            elif choix == "3":              
                 Menu.Règles()
+                os.system("cls")                
             elif choix == "4":
                 print("Merci d'avoir joué")
                 os._exit(1)
@@ -230,7 +232,7 @@ class Menu():#modif
 
 
     @staticmethod
-    def Règles():#modif
+    def Règles():
         os.system("cls")
         print("Voici les règles:\n"
         "Ceci est un jeu de plateau où le joueur(vous \"0\") devra récuperer un maximum de bonbons dans un temps imparti.\n"
@@ -242,7 +244,7 @@ class Menu():#modif
 
         input("\nAppuyer sur ENTER pour retourner au menu ...")
 
-    @staticmethod #modif
+    @staticmethod
     def Logo():
         print("\n"
             "   _____                _       _____           _     \n"
@@ -258,8 +260,7 @@ class Menu():#modif
 
     @staticmethod
 
-    def Affichage():#modif
-
+    def Affichage():
         print("\n"
             "     ___________________________________  \n"
             "    /               MENU                \ \n"
@@ -273,7 +274,8 @@ class Menu():#modif
 
 
     @staticmethod
-    def Difficulte():#modif
+    def Difficulte():
+        os.system("cls")
         print("\n"
             "     ___________________________________  \n"
             "    /            DIFFICULTES            \ \n"
@@ -287,7 +289,7 @@ class Menu():#modif
         return input("Entrez votre choix : ")
 
 
-if __name__ == "__main__" : #modif
+if __name__ == "__main__" :
      
     g = Menu()
     g.Main()
