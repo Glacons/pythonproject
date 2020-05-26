@@ -20,7 +20,7 @@ class Player :
         self.before = start 
         self.compare = start 
 
-
+    # Permet au joueur de se déplacer et de quitter la partie en cours
     def move(self) :
         
         key = input("Mouvement (z,q,s,d) or (l) : ")
@@ -68,7 +68,7 @@ class Game :
                     print(".",end=" ")
             print()
             
-    # Fait apparaitre un bonbon
+    # Fait apparaitre un bonbon, bonus et malus
     def pop_candy(self):
         new_candy = (random.choice(range(self.board_size)),random.choice(range(self.board_size)))
         if new_candy not in self.candies and new_candy not in self.bonusT and new_candy not in self.malusF :
@@ -84,7 +84,7 @@ class Game :
         if malus_freeze not in self.candies and malus_freeze not in self.bonusT and malus_freeze not in self.malusF :
             self.malusF.append(malus_freeze)
              
-    # Regarde s'il y a un bonbon à prendre (et le prend)
+    # Vérifie s'il y a un bonbon, malus ou bonus à prendre (et le prend)
     def check_candy(self):
         if self.player.position in self.candies:
             self.player.points += 1
@@ -105,11 +105,11 @@ class Game :
     def print_time(self):
         
         restant = self.end - datetime.datetime.today()
-        if restant >= datetime.timedelta(seconds=0) : #timedelta set a 0 sinon il veut pas faire le >= sinon le timer affiche une valeur négative
+        if restant >= datetime.timedelta(seconds=0) : #timedelta mit à 0 sinon il veut pas faire le >= pour ne pas que le timer affiche une valeur négative
             print("Temps restants : ", restant.seconds)
 
-
-    def Ajouter_Scoreboard(self):#a chaque fin de partie ca va prendre nom score et temps dans le txt
+    #A chaque fin de partie ça va prendre nom score et le jour et le mettre dans le txt
+    def Ajouter_Scoreboard(self):
 
         # Prendre la date du jour
         today = datetime.date.today()
@@ -120,19 +120,20 @@ class Game :
             file.write(self.player.name + " " + str(self.player.points) + " " + date + "\n")
 
     @staticmethod
-    def Lire_Scoreboard():#lit le score et print les 10 plus haut         
-        # Lire le fichier et imprimer le top x des joueurs
+    #lit le fichier et print les 10 meilleurs
+    def Lire_Scoreboard():         
+        
         with open("Scoreboard.txt", "r") as file:
             data = file.readlines()
         
         data_split = [i.split() for i in data]
 
-        classement = sorted(data_split, key=lambda infosparties: int(infosparties[1]), reverse=True) # Int car sinon bug reverse=true pour décroissant
-        #prendre les listes(nom,pts,date) dans la liste(datasplit) il prend chaque listes il va aller voir dedans la pos 1 -> les pts et après ca il va classer les listes par ordres décroissants dans le score
+        classement = sorted(data_split, key=lambda infosparties: int(infosparties[1]), reverse=True) # reverse=true pour affichage décroissant
+        #prendre les listes(nom,pts,date) dans la liste(datasplit) il prend chaque listes il va aller voir dedans la position 1 -> les pts et après ça il va classer les listes par ordres décroissants dans le score
         
         print("\n----- Scoreboard -----")
         for i in range(0, 10):
-            try:  # Exception pour si il n'y a pas 10 joueurs
+            try:  # Exception au cas où si il n'y a pas 10 joueurs
                 print(i + 1,"\t" + "\t".join(classement[i]))
             except:
                 pass
@@ -172,6 +173,7 @@ class Game :
             self.draw()
             self.print_time()
             
+            #booléen pour ne pas perturber l'affiche du plateau lorsque qu'on ramasse un malus
             if self.bool_freeze == True :
                 print("Impossible de bouger, trop froid !!")
                 time.sleep(2)
@@ -196,7 +198,7 @@ class Game :
         return end
 
 class Menu():
-
+    #affiche un menu à choix multiples
     def Main(self):
         os.system("cls")
         Menu.Logo()
