@@ -186,7 +186,7 @@ class Game :
         print(self.player.name,"avez", self.player.points, "points")
         self.Ajouter_Scoreboard()
         self.Lire_Scoreboard()
-        input("\nAppuyer sur ENTER pour continuer ...")
+        input("\nAppuyez sur ENTER pour continuer ...")
         time.sleep(3)
         os.system("cls")
 
@@ -208,10 +208,10 @@ class Menu():
 
             if choix == "1":
                 
-                player_name = input("Entrer votre pseudo: ")
+                player_name = input("Entrez votre pseudo: ")
                 while len(player_name) > 5 or " " in player_name:
                     print("ERREUR : Votre pseudo comporte plus de 5 caractères et il ne peut pas contenir d'espace\n")
-                    player_name = input("Entrer votre pseudo: ")
+                    player_name = input("Entrez votre pseudo: ")
                 diffi = Menu.Difficulte()
                 while diffi != "1" and diffi != "2" and diffi != "3":
                     diffi = Menu.Difficulte()
@@ -230,7 +230,7 @@ class Menu():
                 print("Merci d'avoir joué")
                 os._exit(1)
             else:
-                print("Bad choice ...")
+                print("Mauvais choix ...")
 
 
     @staticmethod
@@ -244,7 +244,7 @@ class Menu():
         "-  T un bonus de temps de 3 secondes.\n"
         "-  ƒ un malus vous gelant pendant 2 secondes.")
 
-        input("\nAppuyer sur ENTER pour retourner au menu ...")
+        input("\nAppuyez sur ENTER pour retourner au menu ...")
 
     @staticmethod
     def Logo():
